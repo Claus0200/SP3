@@ -1,27 +1,78 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
+class Main
+class ChillFlix
+class UserMenu
+class User
+abstract class Media
+class Film
+class Serie
+class E-book
+class CreateMedia
+class TextUI
 
-List <|-- AbstractList
-Collection <|-- AbstractCollection
 
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
+Main : startProgram()
 
-class ArrayList {
-Object[] elementData
-size()
-}
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
-}
+
+User : +ID
+User : -Username
+User : -Password
+User : -ArrayList savedFilms
+User : -ArrayList savedSeries
+User : -ArrayList savedE-books
+
+ChillFlix : + ArrayList Films
+ChillFlix : + ArrayList Series
+ChillFlix : + ArrayList E-books
+ChillFlix : + User user
+
+ChillFlix : + void getMedia()
+ChillFlix : + void getChoice()
+ChillFlix : + void searchFilm()
+ChillFlix : + void searchCategory()
+ChillFlix : + void showSeenFilms()
+ChillFlix : + void showSavedFilms()
+ChillFlix : + void searchE-books()
+ChillFlix : + void logOut()
+ChillFlix : + void playMovie()
+ChillFlix : + void addToWatchLater()
+ChillFlix : + void removeFromWatchLater()
+
+Media : +ID
+Media : -Titel
+Media : -Year
+Media : -ArrayList Category
+Media : -Rating
+Media : -Duration
+Serie : -ArrayList totalEpisodes
+
+
+CreateMedia : +void createFilm()
+CreateMedia : +void createSerie()
+CreateMedia : +void createE-book()
+
+TextUI : + void printText(String msg)
+TextUI : + String getUserInput()
+
+UserMenu : +void getChoice()
+UserMenu : +void signup()
+UserMenu : +void loadSavedMedia()
+UserMenu : +void login()
+
+User --> UserMenu
+Main --> UserMenu
+UserMenu --> ChillFlix
+Film --> CreateMedia
+Serie --> CreateMedia
+"E-book" --> CreateMedia
+
+CreateMedia <-- ChillFlix
+TextUI <-> ChillFlix
+Media <|-- Film
+Media <|-- Serie
+Media <|-- "E-book"
 
 @enduml
