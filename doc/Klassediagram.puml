@@ -6,7 +6,7 @@ class ChillFlix
 class UserMenu
 class User
 abstract class Media
-class Film
+class Movie
 class Serie
 class E-book
 class CreateMedia
@@ -17,20 +17,20 @@ Main : startProgram()
 User : +ID
 User : -Username
 User : -Password
-User : -ArrayList savedFilms
+User : -ArrayList savedMovies
 User : -ArrayList savedSeries
 User : -ArrayList savedE-books
 
-ChillFlix : + ArrayList Films
+ChillFlix : + ArrayList Movie
 ChillFlix : + ArrayList Series
 ChillFlix : + ArrayList E-books
 ChillFlix : + User user
 ChillFlix : + void getMedia()
 ChillFlix : + void getChoice()
-ChillFlix : + void searchFilm()
+ChillFlix : + void searchMovie()
 ChillFlix : + void searchCategory()
-ChillFlix : + void showSeenFilms()
-ChillFlix : + void showSavedFilms()
+ChillFlix : + void showSeenMovies()
+ChillFlix : + void showSavedMovies()
 ChillFlix : + void searchE-books()
 ChillFlix : + void logout()
 ChillFlix : + void playMovie()
@@ -45,7 +45,7 @@ Media : -Rating
 Media : -Duration
 Serie : -ArrayList totalEpisodes
 
-CreateMedia : +void createFilm()
+CreateMedia : +void createMovie()
 CreateMedia : +void createSerie()
 CreateMedia : +void createE-book()
 
@@ -60,13 +60,13 @@ UserMenu : +void login()
 User --> UserMenu
 Main --> UserMenu
 UserMenu --> ChillFlix
-Film --> CreateMedia
+Movie --> CreateMedia
 Serie --> CreateMedia
 "E-book" --> CreateMedia
 
 CreateMedia <-- ChillFlix
 TextUI <-> ChillFlix
-Media <|-- Film
+Media <|-- Movie
 Media <|-- Serie
 Media <|-- "E-book"
 
