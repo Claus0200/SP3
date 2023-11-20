@@ -9,13 +9,14 @@ import java.io.File;
 public class FileIO {
     Scanner scan;
 
-    public ArrayList<String> readUser(String path) {
+    public ArrayList<String> loadUsers(String path) {
 
         ArrayList<String> text = new ArrayList<>();
         File file = new File(path);
 
         try {
             scan = new Scanner(file);
+            scan.nextLine();
             while(scan.hasNextLine()) {
                 String line = scan.nextLine();
                 text.add(line);
@@ -29,17 +30,19 @@ public class FileIO {
         return text;
     }
 
-    public void saveUser(String path, User user) {
+    public void signupUser(String path, User user, ArrayList<User> users) {
 
         try {
 
+            String previousUsers = "";
+            String startLine = "Username;Password;ID" + "\n";
             FileWriter writer = new FileWriter(path);
-            for (String s : readUser(path)) {
-                scan.nextLine();
-                System.out.println(s);
+            for(User userFromList : users) {
+                previousUsers += userFromList.getUsername() + ";" + userFromList.getPassword() + ";" + userFromList.id + "\n";
             }
-            String lineToSave = user.getUsername() + "; " + user.getPassword();
-            writer.write(lineToSave + "\n");
+            String lineToSave = user.getUsername() + ";" + user.getPassword() + ";" + user.id;
+            writer.write(startLine + previousUsers + lineToSave + "\n");
+            writer.close();
         }
         catch(IOException e) {
             System.out.println("Something went wrong");
@@ -47,24 +50,20 @@ public class FileIO {
 
     }
 
-    /*
-    public void searchUser(S
-
-     */
-
-    /*public static void searchCategory(String genre) throws FileNotFoundException {
-        File file = new File("src/100bedstefilm.txt");
-        Scanner scanner = new Scanner(file);
-        while (scanner.hasNextLine()) {
-            final String lineFromFile = scanner.nextLine();
-            if (lineFromFile.contains(genre)) {
-                // a match!
-                System.out.println(lineFromFile);
-                // break;
-            }
+    public void saveUser(String path) {
+        try {
+            FileWriter writer = new FileWriter(path);
+            writer.write("test");
+            writer.close();
         }
-    }*/
-    public ArrayList<String> readPlayerData(String path) {
+
+        catch(IOException e) {
+
+        }
+    }
+
+
+    public ArrayList<String> readMediaData(String path) {
         ArrayList<String> data = new ArrayList<>();
         //instantier File
         File file = new File(path);

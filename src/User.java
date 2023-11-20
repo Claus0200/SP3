@@ -7,6 +7,7 @@ public class User {
     private ArrayList<Integer> savedFilms;
     private ArrayList<Integer> savedSeries;
     private ArrayList<Integer> savedEbooks;
+    private ArrayList<Integer> seenMedias;
 
     User(String username, String password, int id) {
         this.username = username;
@@ -20,6 +21,10 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public ArrayList<Integer> getSeenMedias() {
+        return seenMedias;
     }
 
     @Override

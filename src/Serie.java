@@ -2,14 +2,15 @@ import java.util.ArrayList;
 
 public class Serie extends Media {
 
-    ArrayList<Integer> totalEpisodes = new ArrayList<Integer>();
+    ArrayList<String> totalEpisodes;
 
-    public Serie(int ID, String titel, int year, String rating, ArrayList<String> category) {
+    public Serie(int ID, String titel, String year, String rating, ArrayList<String> category, ArrayList<String> totalEpisodes) {
         super(ID, titel, year, rating,category);
+        this.totalEpisodes = totalEpisodes;
     }
 
 
-    public ArrayList<Integer> getTotalEpisodes() {
+    public ArrayList<String> getTotalEpisodes() {
         return totalEpisodes;
     }
 

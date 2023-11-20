@@ -1,40 +1,75 @@
 import java.util.ArrayList;
 
 public class ChillFlix {
-    public ArrayList<Movie> movies = new ArrayList<>();
-    public ArrayList<Serie> series = new ArrayList<>();
-    public ArrayList<Ebook> ebooks = new ArrayList<>();
+    public ArrayList<Media> medias = new ArrayList<>();
     public User user;
+
     FileIO fileIO = new FileIO();
     TextUI textUI = new TextUI();
     CreateMedia createMedia = new CreateMedia();
 
     void getMedia() {
-        CreateMedia.createMovie();
-
+        medias = CreateMedia.loadMediaData();
     }
 
-    void getChoice() {
-     
+    void start(User user) {
+        this.user = user;
+        getMedia();
+        getChoice();
+        //playMovie();
     }
 
-    void searchMovie() {
-
-    }
-
-    /*void searchCategory() {
-        try {
-            fileIO.searchCategory(textUI.getUserInput("Hvad vil du søge på taber"));
+    public void getChoice() {
+        String choice = textUI.getUserInput("search for movie(Movie), search for Category(Category) or search for rating(Rating)");
+        if (choice.equals("Rating")) {
+            searchRating(textUI.getUserInput("Hvilken rating score fra rottentomato vil du søge på?"));
         }
-        catch(Exception e) {
-            System.out.println("Dette er ikke en kategori");
+        if (choice.equals("Category")) {
+            searchCategory(textUI.getUserInput("Hvilken category vil du søge efter?"));
+        }
+        if (choice.equals("Movie")) {
+            searchMovie(textUI.getUserInput("Hvilken film vil du søge efter?"));
         }
     }
-*/
 
-    void showSeenMovies() {
-
+    public void searchMovie(String searchmovie) {
+        int count = 0;
+        for (Media media : medias) {
+            if (media.getTitel().contains(searchmovie)) {
+                count += 1;
+                System.out.println(count + ") " + media.toString());
+            }
+        }
     }
+
+    public void searchCategory(String searchcategory) {
+        for (Media media : medias) {
+            if (media.getCategory().contains(searchcategory)) {
+                System.out.println(media);
+            }
+        }
+    }
+
+    public void searchRating(String searchrating) {
+        for (Media media : medias) {
+            if (media.getRating().contains(searchrating)) {
+                System.out.println(media);
+            }
+        }
+    }
+
+   /* void SeenMovies(String SeenMovies) {
+        for (Movie movie : movies) {
+            if (user.getSeenMovies().) {
+
+            }
+
+
+        }
+
+
+    }*/
+
 
     void showSavedMovies() {
 
@@ -49,7 +84,13 @@ public class ChillFlix {
     }
 
     void playMovie() {
+        String choice = textUI.getUserInput("Would you like to watch this movie? Yes(Y) or No(N)");
+        if (choice.equals("Y")) {
 
+        }
+        if (choice.equals("N")) {
+
+        }
     }
 
 

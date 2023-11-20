@@ -4,16 +4,18 @@ public abstract class Media {
 
     public int ID;
     private String titel;
-    private int year;
+    private String year;
     private String rating;
     private ArrayList<String> category;
 
-    Media(int ID, String titel, int year, String rating, ArrayList<String> category) {
+
+    Media(int ID, String titel, String year, String rating, ArrayList<String> category) {
         this.ID = ID;
         this.titel = titel;
         this.year = year;
         this.rating = rating;
         this.category = category;
+
     }
 
     public void testMethod() {
@@ -24,20 +26,20 @@ public abstract class Media {
         return titel;
     }
 
-    private int getYear() {
+    public String getYear() {
         return year;
     }
 
-    private String getRating() {
+    public String getRating() {
         return rating;
     }
 
-    private ArrayList<String> getCategory() {
+    public ArrayList<String> getCategory() {
         return category;
     }
 
     public String toString() {
-        return " The movies name: " + titel + ". Release year of the movie: " + year + " The movies rating: " + rating + " The movies category: " + category;
+        return " The movies name: " + titel + ". Release year of the movie: " + year + " The movies rating: " + rating + " The movies category(s): " + category;
     }
 
 

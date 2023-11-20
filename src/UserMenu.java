@@ -6,9 +6,12 @@ public class UserMenu {
     FileIO fileIO = new FileIO();
     User user;
     String path = "src/users.txt";
+    ArrayList<User> users = new ArrayList<>();
 
-    void start() {
+    public User start() {
+        loadUsers();
         getChoice();
+        return user;
     }
 
     void getChoice() {
@@ -17,42 +20,46 @@ public class UserMenu {
             signup();
         }
         if(choice.equals("L")) {
-            test();
+            login();
         }
-
     }
 
+    void loadUsers() {
+        ArrayList<String> usersText = fileIO.loadUsers(path);
+        for(String user : usersText) {
+            String[] values = user.split(";");
+            users.add(new User(values[0].trim(),values[1].trim(),Integer.parseInt(values[2])));
+        }
+        System.out.println(users);
+    }
+
+
     void signup() {
-        user = new User(textUI.getUserInput("Username: "), textUI.getUserInput("Password: "),0);
-        fileIO.saveUser("src/users.txt",user);
+        user = new User(textUI.getUserInput("Username: "), textUI.getUserInput("Password: "),users.size()+1);
+        for(User userFromList : users) {
+            if(user.getUsername().equals(userFromList.getUsername())) {
+                signup();
+            }
+            else {
+                fileIO.signupUser("src/users.txt",user,users);
+            }
+        }
     }
 
     void login() {
-        test();
-        /*
-        String loginUsername = textUI.getUserInput("Username: ");
-        String loginPassword = textUI.getUserInput("Password: ");
-
-
-        user = new User(textUI.getUserInput(),textUI.getUserInput(),0);
-        if (user.getUsername().equals())
-
-
-        */
-    }
-
-    void test() {
-        ArrayList<String> users = fileIO.readUser(path);
-        for(String user : users) {
-            System.out.println(user);
+        String username = textUI.getUserInput("Username: ");
+        String password = textUI.getUserInput("Password: ");
+        for(User user : users) {
+            if(user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                this.user = user;
+            }
+            else {
+                login();
+            }
         }
     }
 
     void fuckingDumbassWhoForgotPassword() {
-
-    }
-
-    void loadSavedMedia() {
 
     }
 }
