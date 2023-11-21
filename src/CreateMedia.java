@@ -33,15 +33,16 @@ public class CreateMedia {
                     totalEpisodes.add(toe[t].trim());
                 }
             }
+            String id = String.valueOf(i+1);
 
             if(type.equals("Movie")) {
-                medias.add(new Movie(i+1, titel, year, rating, category));
+                medias.add(new Movie(id, titel, year, rating, category));
             }
             else if(type.equals("Serie")) {
-                medias.add(new Serie(i+1, titel, year, rating, category, totalEpisodes));
+                medias.add(new Serie(id, titel, year, rating, category, totalEpisodes));
             }
             else if(type.equals("Ebook")) {
-                medias.add(new Ebook(i+1, titel, year, rating, category));
+                medias.add(new Ebook(id, titel, year, rating, category));
             }
         }
     }

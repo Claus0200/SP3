@@ -2,14 +2,14 @@ import java.util.ArrayList;
 
 public abstract class Media {
 
-    public int ID;
+    public String ID;
     private String titel;
     private String year;
     private String rating;
     private ArrayList<String> category;
 
 
-    Media(int ID, String titel, String year, String rating, ArrayList<String> category) {
+    Media(String ID, String titel, String year, String rating, ArrayList<String> category) {
         this.ID = ID;
         this.titel = titel;
         this.year = year;

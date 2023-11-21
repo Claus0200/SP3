@@ -28,14 +28,20 @@ public class UserMenu {
         ArrayList<String> usersText = fileIO.loadUsers(path);
         for(String user : usersText) {
             String[] values = user.split(";");
-            users.add(new User(values[0].trim(),values[1].trim(),Integer.parseInt(values[2])));
+            ArrayList<String> seenMoviesList = new ArrayList<>();
+            String[] seenMovies = values[3].split(",");
+            for (int i = 0; i < seenMovies.length; i++) {
+                seenMoviesList.add(seenMovies[i]);
+            }
+            users.add(new User(values[0].trim(),values[1].trim(),Integer.parseInt(values[2]),seenMoviesList));
         }
         System.out.println(users);
     }
 
 
     void signup() {
-        user = new User(textUI.getUserInput("Username: "), textUI.getUserInput("Password: "),users.size()+1);
+        ArrayList<String> seenMovies = new ArrayList<>();
+        user = new User(textUI.getUserInput("Username: "), textUI.getUserInput("Password: "),users.size()+1,seenMovies);
         for(User userFromList : users) {
             if(user.getUsername().equals(userFromList.getUsername())) {
                 signup();
@@ -52,9 +58,13 @@ public class UserMenu {
         for(User user : users) {
             if(user.getUsername().equals(username) && user.getPassword().equals(password)) {
                 this.user = user;
+                System.out.println("You did it!");
+                break;
             }
             else {
+                System.out.println("Try again loser");
                 login();
+                break;
             }
         }
     }

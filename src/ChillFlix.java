@@ -1,4 +1,8 @@
+import jdk.jfr.Category;
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ChillFlix {
     public ArrayList<Media> medias = new ArrayList<>();
@@ -11,12 +15,13 @@ public class ChillFlix {
     void getMedia() {
         medias = CreateMedia.loadMediaData();
     }
-
+          
     void start(User user) {
         this.user = user;
         getMedia();
         getChoice();
-        //playMovie();
+        //FIX DET HER
+        fileIO.saveUsers("src/users.txt",);
     }
 
     public void getChoice() {
@@ -33,16 +38,17 @@ public class ChillFlix {
     }
 
     public void searchMovie(String searchmovie) {
-        int count = 0;
+        ArrayList<Media> movies = new ArrayList<>();
         for (Media media : medias) {
             if (media.getTitel().contains(searchmovie)) {
-                count += 1;
-                System.out.println(count + ") " + media.toString());
+                movies.add(media);
             }
         }
+        selectMovie(movies);
     }
 
     public void searchCategory(String searchcategory) {
+        ArrayList<Objects> categories = new ArrayList<>();
         for (Media media : medias) {
             if (media.getCategory().contains(searchcategory)) {
                 System.out.println(media);
@@ -58,21 +64,37 @@ public class ChillFlix {
         }
     }
 
-   /* void SeenMovies(String SeenMovies) {
-        for (Movie movie : movies) {
-            if (user.getSeenMovies().) {
+    public void SeenMovies(String SeenMovies) {
+        SeenMovies = textUI.getUserInput("Film du har set:");
+        for (Media media : medias) {
+            if (user.getSeenMovies().contains(media.ID) && media instanceof Movie) {
+                System.out.println(media);
+
+                System.out.println(user.getSeenMovies());
+
 
             }
 
-
         }
 
+    }
 
-    }*/
+    void selectMovie(ArrayList<Media> movies) {
+        for (int i = 0; i < movies.size(); i++) {
+            System.out.println(i+1 + ") " + movies.get(i));
 
+        }
+        String text = textUI.getUserInput("Hvilken film vil du vælge? ID (1,2,3...)");
+        playMovie(movies.get(Integer.parseInt(text)-1));
+    }
 
-    void showSavedMovies() {
-
+    public void showSavedMovies(String showSavedMovies) {
+        showSavedMovies = textUI.getUserInput("Saved Movies: ");
+        for (Media media : medias) {
+            if (user.getShowSavedMovies().contains(media.ID) && media instanceof Movie) {
+                System.out.println(media);
+            }
+        }
     }
 
     void searchEBooks() {
@@ -83,13 +105,14 @@ public class ChillFlix {
         System.exit(0);
     }
 
-    void playMovie() {
-        String choice = textUI.getUserInput("Would you like to watch this movie? Yes(Y) or No(N)");
-        if (choice.equals("Y")) {
-
+    void playMovie(Media movie) {
+        String choice = textUI.getUserInput("Would you like to watch: " + movie.getTitel() + " Yes(Y) or No(N)").toLowerCase();
+        if (choice.equals("y") || choice.equals("yes")) {
+            System.out.println("You are now watching: " + movie.getTitel());
+            user.setSeenMovies(movie.ID);
         }
-        if (choice.equals("N")) {
-
+        if (choice.equals("n") || choice.equals("no")) {
+            getChoice();
         }
     }
 
