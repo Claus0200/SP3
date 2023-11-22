@@ -23,6 +23,9 @@ public class UserMenu {
         if (choice.equals("L")) {
             login();
         }
+        else {
+            getChoice();
+        }
     }
 
     public ArrayList<User> getUsers() {
@@ -36,8 +39,7 @@ public class UserMenu {
             ArrayList<String> seenMoviesList = new ArrayList<>();
             if (values.length < 4) {
                 seenMoviesList.add("0");
-            }
-            else {
+            } else {
                 String[] seenMovies = values[3].split(",");
                 for (int i = 0; i < seenMovies.length; i++) {
                     seenMoviesList.add(seenMovies[i]);
@@ -48,9 +50,58 @@ public class UserMenu {
         System.out.println(users);
     }
 
-
     void signup() {
         ArrayList<String> seenMovies = new ArrayList<>();
+        seenMovies.add("0");
+        String password = "";
+        String username = "";
+        while (true) {
+            boolean userExist = false;
+            username = textUI.getUserInput("Username: ");
+            password = textUI.getUserInput("Password: ");
+            for (User userFromList : users) {
+                if (username.equals(userFromList.getUsername())) {
+                    userExist = true;
+                    System.out.println("This username already exist!");
+                }
+            }
+            if (userExist == false) {
+                break;
+            }
+        }
+
+        user = new User(username, password, users.size() + 1, seenMovies);
+        fileIO.signupUser("src/users.txt", user, users);
+        users.add(user);
+        System.out.println("User has been saved");
+
+
+
+
+
+
+
+        /*ArrayList<String> seenMovies = new ArrayList<>();
+        seenMovies.add("0");
+        boolean userExist = false;
+        String username = textUI.getUserInput("Username: ");
+        String password = textUI.getUserInput("Password: ");
+        for (User userFromList : users) {
+            if (username.equals(userFromList.getUsername())) {
+                signup();
+                userExist = true;
+            }
+        }
+
+        if(!userExist) {
+            user = new User(username, password, users.size() + 1, seenMovies);
+            fileIO.signupUser("src/users.txt", user, users);
+            users.add(user);
+            System.out.println("User has been saved");
+        }*/
+
+
+        /*ArrayList<String> seenMovies = new ArrayList<>();
         seenMovies.add("0");
         boolean signupSucces = false;
         while (!signupSucces) {
@@ -66,7 +117,7 @@ public class UserMenu {
 
                 }
             }
-        }
+        }*/
     }
 
     void login() {

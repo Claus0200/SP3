@@ -49,7 +49,12 @@ public class ChillFlix {
                 movies.add(media);
             }
         }
-        selectMovie(movies);
+        if (movies.isEmpty()) {
+            searchMovie(textUI.getUserInput("Der var ingen film med det navn, prøv igen."));
+        }
+        else {
+            selectMovie(movies);
+        }
     }
 
     public void searchCategory(String searchcategory) {
@@ -80,7 +85,6 @@ public class ChillFlix {
     void selectMovie(ArrayList<Media> movies) {
         for (int i = 0; i < movies.size(); i++) {
             System.out.println(i+1 + ") " + movies.get(i));
-
         }
         String text = textUI.getUserInput("Hvilken film vil du vælge? ID (1,2,3...)");
         playMovie(movies.get(Integer.parseInt(text)-1));
@@ -106,8 +110,9 @@ public class ChillFlix {
     void playMovie(Media movie) {
         String choice = textUI.getUserInput("Would you like to watch: " + movie.getTitel() + " Yes(Y) or No(N)").toLowerCase();
         if (choice.equals("y") || choice.equals("yes")) {
-            System.out.println("You are now watching: " + movie.getTitel());
+            System.out.println( movie.getTitel() + " is now playing");
             user.setSeenMovies(movie.ID);
+            textUI.getUserInput("Press any button to quit");
         }
         if (choice.equals("n") || choice.equals("no")) {
             getChoice();
