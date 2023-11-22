@@ -39,10 +39,10 @@ public class CreateMedia {
                 medias.add(new Movie(id, titel, year, rating, category));
             }
             else if(type.equals("Serie")) {
-                medias.add(new Serie(id, titel, year, rating, category, totalEpisodes));
+                medias.add(new Serie(id+medias.size(), titel, year, rating, category, totalEpisodes));
             }
             else if(type.equals("Ebook")) {
-                medias.add(new Ebook(id, titel, year, rating, category));
+                medias.add(new Ebook(id+medias.size(), titel, year, rating, category));
             }
         }
     }

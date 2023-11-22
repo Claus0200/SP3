@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 
+// The Media class is an abstract class,
+// That inherits its content to the movie, serie and Ebook class.
+
 public abstract class Media {
+
+// Declare variables
 
     public String ID;
     private String titel;
@@ -8,6 +13,7 @@ public abstract class Media {
     private String rating;
     private ArrayList<String> category;
 
+ // Our Media Constructor, that holds our variables
 
     Media(String ID, String titel, String year, String rating, ArrayList<String> category) {
         this.ID = ID;
@@ -21,6 +27,8 @@ public abstract class Media {
     public void testMethod() {
         System.out.println("0");
     }
+
+// Getter methods that let you get variables inside a class. A class represents an object since java is object oriented.
 
     public String getTitel() {
         return titel;
@@ -37,6 +45,9 @@ public abstract class Media {
     public ArrayList<String> getCategory() {
         return category;
     }
+
+
+// toString methods to print out our objects.
 
     public String toString() {
         return " The movies name: " + titel + ". Release year of the movie: " + year + " The movies rating: " + rating + " The movies category(s): " + category;

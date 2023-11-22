@@ -1,14 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        UserMenu userMenu = new UserMenu();
-        User user;
-        user = userMenu.start();
-        ChillFlix chillFlix = new ChillFlix();
-        //chillFlix.searchCategory();
-
-        //Movie m1 = new Movie();
-
-        chillFlix.start(user);
-
+        ChillFlix chillFlix = new ChillFlix();   // Declaring the Variable userMenu to Refer to an Object. Short version: Declaring an Object.
+        chillFlix.start();                       // Declaring chillFlix.start;
     }
 }

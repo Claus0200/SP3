@@ -37,6 +37,6 @@ public class User {
     }
     @Override
     public String toString() {
-        return username + "; " + password + "; " + id;
+        return username + "; " + password + "; " + id + "; " + seenMovies;
     }
 }

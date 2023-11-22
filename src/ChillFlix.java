@@ -6,34 +6,39 @@ import java.util.Objects;
 
 public class ChillFlix {
     public ArrayList<Media> medias = new ArrayList<>();
+    public ArrayList<User> users = new ArrayList<>();
     public User user;
 
-    FileIO fileIO = new FileIO();
     TextUI textUI = new TextUI();
-    CreateMedia createMedia = new CreateMedia();
-
-    void getMedia() {
-        medias = CreateMedia.loadMediaData();
-    }
+    UserMenu userMenu = new UserMenu();
           
-    void start(User user) {
-        this.user = user;
-        getMedia();
+    void start() {
+        user = userMenu.start();
+        users = userMenu.getUsers();
+        medias = CreateMedia.loadMediaData();
         getChoice();
         //FIX DET HER
-        fileIO.saveUsers("src/users.txt",);
+        userMenu.saveUsers(users);
     }
 
     public void getChoice() {
-        String choice = textUI.getUserInput("search for movie(Movie), search for Category(Category) or search for rating(Rating)");
-        if (choice.equals("Rating")) {
-            searchRating(textUI.getUserInput("Hvilken rating score fra rottentomato vil du søge på?"));
-        }
-        if (choice.equals("Category")) {
-            searchCategory(textUI.getUserInput("Hvilken category vil du søge efter?"));
-        }
-        if (choice.equals("Movie")) {
-            searchMovie(textUI.getUserInput("Hvilken film vil du søge efter?"));
+        while(true) {
+            String choice = textUI.getUserInput("search for movie(Movie), search for Category(Category), search for rating(Rating), search for seen movies(Seen) or quit(Quit)");
+            if (choice.equals("Rating")) {
+                searchRating(textUI.getUserInput("Hvilken rating score fra rottentomato vil du søge på?"));
+            }
+            if (choice.equals("Category")) {
+                searchCategory(textUI.getUserInput("Hvilken category vil du søge efter?"));
+            }
+            if (choice.equals("Movie")) {
+                searchMovie(textUI.getUserInput("Hvilken film vil du søge efter?"));
+            }
+            if (choice.equals("Seen")) {
+                seenMovies();
+            }
+            if (choice.equals("Quit")) {
+                break;
+            }
         }
     }
 
@@ -64,19 +69,12 @@ public class ChillFlix {
         }
     }
 
-    public void SeenMovies(String SeenMovies) {
-        SeenMovies = textUI.getUserInput("Film du har set:");
+    public void seenMovies() {
         for (Media media : medias) {
             if (user.getSeenMovies().contains(media.ID) && media instanceof Movie) {
                 System.out.println(media);
-
-                System.out.println(user.getSeenMovies());
-
-
             }
-
         }
-
     }
 
     void selectMovie(ArrayList<Media> movies) {
@@ -119,9 +117,11 @@ public class ChillFlix {
 
     void addToWatchLater() {
 
+
     }
 
     void removeFromWatchLater() {
+
 
     }
 
