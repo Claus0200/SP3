@@ -37,6 +37,9 @@ public class User {
     public void addSavedMedia(String add) {
         this.savedMedia.add(add);
     }
+    public void removeSavedMedia(String remove) {
+        this.savedMedia.remove(remove);
+    }
     @Override
     public String toString() {
         return username + "; " + password + "; " + id + "; " + seenMedia + "; " + savedMedia;

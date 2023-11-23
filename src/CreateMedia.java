@@ -13,7 +13,7 @@ public class CreateMedia {
 
     static void createMedia(String path, String type) {
         ArrayList<String> data = io.readMediaData(path);
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < data.size(); i++) {
             String[] row = data.get(i).split(";");
 
             String titel = row[0].trim();
@@ -36,13 +36,13 @@ public class CreateMedia {
             String id = String.valueOf(i+1);
 
             if(type.equals("Movie")) {
-                medias.add(new Movie(id, titel, year, rating, category));
+                medias.add(new Movie(String.valueOf(i+1), titel, year, rating, category));
             }
             else if(type.equals("Serie")) {
-                medias.add(new Serie(id+medias.size(), titel, year, rating, category, totalEpisodes));
+                medias.add(new Serie(String.valueOf(medias.size()+1), titel, year, rating, category, totalEpisodes));
             }
             else if(type.equals("Ebook")) {
-                medias.add(new Ebook(id+medias.size(), titel, year, rating, category));
+                medias.add(new Ebook(String.valueOf(medias.size()), titel, year, rating, category));
             }
         }
     }
