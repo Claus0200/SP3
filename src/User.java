@@ -4,16 +4,15 @@ public class User {
     public int id;
     private String username;
     private String password;
-    private ArrayList<String> savedFilms;
-    private ArrayList<Integer> savedSeries;
-    private ArrayList<Integer> savedEbooks;
-    private ArrayList<String> seenMovies;
+    private ArrayList<String> savedMedia;
+    private ArrayList<String> seenMedia;
 
-    User(String username, String password, int id, ArrayList<String> seenMovies) {
+    User(String username, String password, int id, ArrayList<String> seenMedia, ArrayList<String> savedMedia) {
         this.username = username;
         this.password = password;
         this.id = id;
-        this.seenMovies = seenMovies;
+        this.seenMedia = seenMedia;
+        this.savedMedia = savedMedia;
     }
 
     public String getUsername() {
@@ -24,19 +23,22 @@ public class User {
         return password;
     }
 
-    public ArrayList<String> getSeenMovies() {
-        return seenMovies;
+    public ArrayList<String> getSeenMedia() {
+        return seenMedia;
     }
 
-    public void setSeenMovies(String add) {
-        this.seenMovies.add(add);
+    public void addSeenMedia(String add) {
+        this.seenMedia.add(add);
     }
 
-    public ArrayList<String> getShowSavedMovies() {
-        return savedFilms;
+    public ArrayList<String> getSavedMedia() {
+        return savedMedia;
+    }
+    public void addSavedMedia(String add) {
+        this.savedMedia.add(add);
     }
     @Override
     public String toString() {
-        return username + "; " + password + "; " + id + "; " + seenMovies;
+        return username + "; " + password + "; " + id + "; " + seenMedia + "; " + savedMedia;
     }
 }

@@ -1,8 +1,4 @@
-Username;Password;ID;SeenMovies
-Claus;123;1;30,2
-Mahdi;069;2;0,56,42,25
-Ferdi;111;3;0
-Lukas;213213;4;0
-dwadwad;goifga;5;0
-agoapk;giaojkne;6;0
-Claus2;123;7;0
+Username;Password;ID;SeenMedias;SavedMedias
+Claus;123;1;30,2,28,31,30;0,13,14
+Mahdi;069;2;0,56,42;0,20,30
+Ferdi;4321;3;0;0,53

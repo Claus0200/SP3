@@ -10,6 +10,7 @@ public class FileIO {
 
     Scanner scan;                         // Declaring the variable scan.
 
+
     public ArrayList<String> loadUsers(String path) {
 
         ArrayList<String> text = new ArrayList<>();     // Declaring a variable to a new ArrayList.
@@ -35,18 +36,25 @@ public class FileIO {
         try {
 
             String previousUsers = "";
-            String startLine = "Username;Password;ID;SeenMovies" + "\n";
+            String startLine = "Username;Password;ID;SeenMedias;SavedMedias" + "\n";
             FileWriter writer = new FileWriter(path);
             for (User userFromList : users) {
                 previousUsers += userFromList.getUsername() + ";" + userFromList.getPassword() + ";" + userFromList.id + ";";
 
-                for (String watchedMovie : userFromList.getSeenMovies()) {
+                for (String watchedMovie : userFromList.getSeenMedia()) {
                     previousUsers += watchedMovie + ",";
+                }
+
+                previousUsers = previousUsers.substring(0,previousUsers.length()-1);
+                previousUsers += ";";
+
+                for (String savedMovie : userFromList.getSavedMedia()) {
+                    previousUsers += savedMovie + ",";
                 }
                 previousUsers = previousUsers.substring(0,previousUsers.length()-1) + "\n";
             }
 
-            String lineToSave = user.getUsername() + ";" + user.getPassword() + ";" + user.id + ";";
+            String lineToSave = user.getUsername() + ";" + user.getPassword() + ";" + user.id + ";" + "0" + ";" + "0";
             writer.write(startLine + previousUsers + lineToSave + "\n");
             writer.close();
         } catch (IOException e) {
@@ -59,15 +67,21 @@ public class FileIO {
         try {
             String savedUsers = "";
 
-            String StartLine = "Username;Password;ID;SeenMovies" + "\n";
+            String StartLine = "Username;Password;ID;SeenMedias;SavedMedias" + "\n";
             FileWriter writer = new FileWriter(path);
 
             for (User userFromList : users) {
                 savedUsers = savedUsers + userFromList.getUsername() + ";" + userFromList.getPassword() + ";" + userFromList.id + ";";
                 System.out.println(userFromList);
 
-                for (String watchedMovie : userFromList.getSeenMovies()) {
+                for (String watchedMovie : userFromList.getSeenMedia()) {
                     savedUsers += watchedMovie + ",";
+                }
+                savedUsers = savedUsers.substring(0,savedUsers.length()-1);
+                savedUsers += ";";
+
+                for (String savedMedia : userFromList.getSavedMedia()) {
+                    savedUsers += savedMedia + ",";
                 }
                 savedUsers = savedUsers.substring(0,savedUsers.length()-1) + "\n";
             }

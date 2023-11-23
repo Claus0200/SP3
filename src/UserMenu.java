@@ -22,8 +22,7 @@ public class UserMenu {
         }
         if (choice.equals("L")) {
             login();
-        }
-        else {
+        } else {
             getChoice();
         }
     }
@@ -36,23 +35,28 @@ public class UserMenu {
         ArrayList<String> usersText = fileIO.loadUsers(path);
         for (String user : usersText) {
             String[] values = user.split(";");
-            ArrayList<String> seenMoviesList = new ArrayList<>();
-            if (values.length < 4) {
-                seenMoviesList.add("0");
-            } else {
-                String[] seenMovies = values[3].split(",");
-                for (int i = 0; i < seenMovies.length; i++) {
-                    seenMoviesList.add(seenMovies[i]);
-                }
+            ArrayList<String> seenMediaList = new ArrayList<>();
+            String[] seenMedias = values[3].split(",");
+            for (int i = 0; i < seenMedias.length; i++) {
+                seenMediaList.add(seenMedias[i]);
             }
-            users.add(new User(values[0].trim(), values[1].trim(), Integer.parseInt(values[2]), seenMoviesList));
+            ArrayList<String> savedMediaList = new ArrayList<>();
+            String[] savedMedia = values[4].split(",");
+            for (int i = 0; i < savedMedia.length; i++) {
+                savedMediaList.add(savedMedia[i]);
+            }
+            users.add(new User(values[0].trim(), values[1].trim(), Integer.parseInt(values[2]), seenMediaList, savedMediaList));
+
         }
         System.out.println(users);
     }
 
+
     void signup() {
-        ArrayList<String> seenMovies = new ArrayList<>();
-        seenMovies.add("0");
+        ArrayList<String> seenMedias = new ArrayList<>();
+        ArrayList<String> savedMedias = new ArrayList<>();
+        seenMedias.add("0");
+        savedMedias.add("0");
         String password = "";
         String username = "";
         while (true) {
@@ -70,7 +74,7 @@ public class UserMenu {
             }
         }
 
-        user = new User(username, password, users.size() + 1, seenMovies);
+        user = new User(username, password, users.size() + 1, seenMedias, savedMedias);
         fileIO.signupUser("src/users.txt", user, users);
         users.add(user);
         System.out.println("User has been saved");
@@ -138,3 +142,4 @@ public class UserMenu {
         fileIO.saveUsers(path, usersList);
     }
 }
+
