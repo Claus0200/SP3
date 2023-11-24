@@ -14,7 +14,10 @@ public class Movie extends Media {
       super(ID, titel,year,rating,category);
     }
 
-
+    @Override
+    public String toString() {
+        return " The movie's name: " + getTitel() + ". Release year of the movie: " + getYear() + " The movie's rating: " + getRating() + " The movie category(s): " + getCategory();
+    }
 
 
 }

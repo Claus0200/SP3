@@ -49,9 +49,6 @@ public abstract class Media {
 
 // toString methods to print out our objects.
 
-    public String toString() {
-        return " The movies name: " + titel + ". Release year of the movie: " + year + " The movies rating: " + rating + " The movies category(s): " + category;
-    }
 
 
 

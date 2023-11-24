@@ -28,10 +28,12 @@ public class Serie extends Media {
 
     // toString methods to print out our objects. @Override is used.
 
+
+
+
     @Override
     public String toString() {
-        return super.toString() + totalEpisodes;
+        return " The serie's name: " + getTitel() + ". Release year of the serie: " + getYear() + " The serie's rating: " + getRating() + " The serie category(s): " + getCategory() + " Episodes: " + totalEpisodes;
     }
-
 }
 
