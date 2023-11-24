@@ -2,11 +2,7 @@ import java.util.Scanner;
 
 public class TextUI {
 
-// A print text method, not completed.
 
-    void printText(String msg) {
-
-    }
 
 // Our getUserInput method with parameter: String msg
 

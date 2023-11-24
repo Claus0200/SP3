@@ -78,50 +78,6 @@ public class UserMenu {
         fileIO.signupUser("src/users.txt", user, users);
         users.add(user);
         System.out.println("User has been saved");
-
-
-
-
-
-
-
-        /*ArrayList<String> seenMovies = new ArrayList<>();
-        seenMovies.add("0");
-        boolean userExist = false;
-        String username = textUI.getUserInput("Username: ");
-        String password = textUI.getUserInput("Password: ");
-        for (User userFromList : users) {
-            if (username.equals(userFromList.getUsername())) {
-                signup();
-                userExist = true;
-            }
-        }
-
-        if(!userExist) {
-            user = new User(username, password, users.size() + 1, seenMovies);
-            fileIO.signupUser("src/users.txt", user, users);
-            users.add(user);
-            System.out.println("User has been saved");
-        }*/
-
-
-        /*ArrayList<String> seenMovies = new ArrayList<>();
-        seenMovies.add("0");
-        boolean signupSucces = false;
-        while (!signupSucces) {
-            user = new User(textUI.getUserInput("Username: "), textUI.getUserInput("Password: "), users.size() + 1, seenMovies);
-            for (User userFromList : users) {
-                if (user.getUsername().equals(userFromList.getUsername())) {
-                    users.add(user);
-                    fileIO.signupUser("src/users.txt", user, users);
-                    signupSucces = true;
-                    break;
-                }
-                else {
-
-                }
-            }
-        }*/
     }
 
     void login() {
@@ -133,7 +89,11 @@ public class UserMenu {
                 if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
                     this.user = user;
                     loginSucces = true;
+                    System.out.println("Login succesful");
                 }
+            }
+            if (!loginSucces) {
+                System.out.println("You failed to login, try again");
             }
         }
     }

@@ -41,9 +41,6 @@ public class CreateMedia {
             else if(type.equals("Serie")) {
                 medias.add(new Serie(String.valueOf(medias.size()+1), titel, year, rating, category, totalEpisodes));
             }
-            else if(type.equals("Ebook")) {
-                medias.add(new Ebook(String.valueOf(medias.size()), titel, year, rating, category));
-            }
         }
     }
 }

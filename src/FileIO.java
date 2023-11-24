@@ -72,7 +72,6 @@ public class FileIO {
 
             for (User userFromList : users) {
                 savedUsers = savedUsers + userFromList.getUsername() + ";" + userFromList.getPassword() + ";" + userFromList.id + ";";
-                System.out.println(userFromList);
 
                 for (String watchedMovie : userFromList.getSeenMedia()) {
                     savedUsers += watchedMovie + ",";

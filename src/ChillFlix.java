@@ -1,8 +1,4 @@
-import jdk.jfr.Category;
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class ChillFlix {
     public ArrayList<Media> medias = new ArrayList<>();
@@ -17,21 +13,20 @@ public class ChillFlix {
         users = userMenu.getUsers();
         medias = CreateMedia.loadMediaData();
         getChoice();
-        //FIX DET HER
         userMenu.saveUsers(users);
     }
 
     public void getChoice() {
         while (true) {
-            String choice = textUI.getUserInput("search for movie, category, rating, seen medias, saved medias or quit(Quit)").toLowerCase();
+            String choice = textUI.getUserInput("search for media, category, rating, seen medias, saved medias or quit(Quit)").toLowerCase();
             if (choice.equals("rating") || choice.equals("r")) {
-                searchRating(textUI.getUserInput("Hvilken rating score fra rottentomato vil du søge på?"));
+                searchRating(textUI.getUserInput("Which rating score from IMDB would you like to search for?"));
             }
             if (choice.equals("category") || choice.equals("c")) {
-                searchCategory(textUI.getUserInput("Hvilken category vil du søge efter?"));
+                searchCategory(textUI.getUserInput("Which category would you like to search for?"));
             }
-            if (choice.equals("movie")) {
-                searchMedia(textUI.getUserInput("Hvilken film vil du søge efter?"));
+            if (choice.equals("media") || choice.equals("movie") || choice.equals("serie")) {
+                searchMedia(textUI.getUserInput("What movie/serie would you like to search for?"));
             }
             if (choice.equals("seen") || choice.equals("seen medias")) {
                 seenMovies();
@@ -54,20 +49,25 @@ public class ChillFlix {
             }
         }
         if (movies.isEmpty()) {
-            searchMedia(textUI.getUserInput("Der var ingen film med det navn, prøv igen."));
-        }
-        else {
+            searchMedia(textUI.getUserInput("There were no movies/series with that name, try again."));
+        } else {
             Media media = selectMovie(movies);
             playMovie(media);
         }
     }
 
     public void searchCategory(String searchcategory) {
-        ArrayList<Objects> categories = new ArrayList<>();
+        ArrayList<Media> categories = new ArrayList<>();
         for (Media media : medias) {
             if (media.getCategory().contains(searchcategory)) {
-                System.out.println(media);
+                categories.add(media);
             }
+        }
+        if (categories.isEmpty()) {
+            System.out.println("There was no movie/serie with that name");
+        } else {
+            Media media = selectMovie(categories);
+            playMovie(media);
         }
     }
 
@@ -89,9 +89,8 @@ public class ChillFlix {
         if (!seenMovies.isEmpty()) {
             Media media = selectMovie(seenMovies);
             playMovie(media);
-        }
-        else {
-            System.out.println("There was no media with that name");
+        } else {
+            System.out.println("You have not seen any movies/series");
         }
     }
 
@@ -99,13 +98,22 @@ public class ChillFlix {
         for (int i = 0; i < medias.size(); i++) {
             System.out.println(i + 1 + ") " + medias.get(i));
         }
-        String text = textUI.getUserInput("Which movie would you like to watch (ID)? or quit ").toLowerCase();
-        if (!(text.equals("q") || text.equals("quit"))) {
-            return medias.get(Integer.parseInt(text) - 1);
-            //playMovie(medias.get(Integer.parseInt(text) - 1));
-        }
-        else {
-            return null;
+        String text = textUI.getUserInput("Which movie/serie would you like to choose (ID)?").toLowerCase();
+        try {
+            try {
+                Media number = medias.get(Integer.parseInt(text) - 1);
+                if (medias.contains(number)) {
+                    return medias.get(Integer.parseInt(text) - 1);
+                } else {
+                    return selectMovie(medias);
+                }
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("You didnt enter a correct ID, try again");
+                return selectMovie(medias);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("You didnt enter a number, try again");
+            return selectMovie(medias);
         }
     }
 
@@ -119,21 +127,16 @@ public class ChillFlix {
         }
 
         if (!savedMedias.isEmpty()) {
-            String choice = textUI.getUserInput("Would you like to watch a movie, or remove?").toLowerCase();
+            String choice = textUI.getUserInput("Would you like to watch a movie/serie, or remove?").toLowerCase();
             if (choice.equals("watch") || choice.equals("w")) {
                 Media media = selectMovie(savedMedias);
                 playMovie(media);
             } else if (choice.equals("remove") || choice.equals("r")) {
                 removeFromWatchLater(selectMovie(savedMedias));
             }
+        } else {
+            System.out.println("You have not saved any movies/serie");
         }
-        else {
-            System.out.println("There was no media with that name");
-        }
-    }
-
-    void searchEBooks() {
-
     }
 
     void logout() {
@@ -151,7 +154,7 @@ public class ChillFlix {
             addToWatchLater(media);
         }
         if (choice.equals("n") || choice.equals("no")) {
-            System.out.println("The Movie is not playing");
+            System.out.println("The movie/serie is not playing");
             addToWatchLater(media);
         }
     }
@@ -160,11 +163,11 @@ public class ChillFlix {
         if (!user.getSavedMedia().contains(media.ID)) {
             String savedMovie = textUI.getUserInput("Would you like to save: " + media.getTitel() + " Yes(Y) or No(N)").toLowerCase();
             if (savedMovie.equals("y") || savedMovie.equals("yes")) {
-                System.out.println(media.getTitel() + "Movie is now saved");
+                System.out.println(media.getTitel() + "Movie/serie is now saved");
                 user.addSavedMedia(media.ID);
             }
             if (savedMovie.equals("n") || savedMovie.equals("no")) {
-                System.out.println(media.getTitel() + "Movie is not saved");
+                System.out.println(media.getTitel() + "Movie/serie is not saved");
             }
         }
     }
@@ -173,11 +176,11 @@ public class ChillFlix {
         if (user.getSavedMedia().contains(media.ID)) {
             String savedMovie = textUI.getUserInput("Would you like to remove: " + media.getTitel() + " Yes(Y) or No(N)").toLowerCase();
             if (savedMovie.equals("y") || savedMovie.equals("yes")) {
-                System.out.println(media.getTitel() + "Movie is now removed");
+                System.out.println(media.getTitel() + "Movie/serie is now removed");
                 user.removeSavedMedia(media.ID);
             }
             if (savedMovie.equals("n") || savedMovie.equals("no")) {
-                System.out.println(media.getTitel() + "Movie is not removed");
+                System.out.println(media.getTitel() + "Movie/serie is not removed");
             }
         }
     }

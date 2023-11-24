@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 // The Media class is an abstract class,
-// That inherits its content to the movie, serie and Ebook class.
+// That inherits its content to the movie and serie class.
 
 public abstract class Media {
 
