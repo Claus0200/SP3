@@ -1,3 +1,3 @@
 # SP3
 
-Det her SP3 opgave er lavet af Claus, Ferdiand og Lukas + Mahdi
+Det her SP3 opgave er lavet af Claus, Mahdi, Ferdiand, og Lukas. 
